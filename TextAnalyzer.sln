@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer.Data", "TextAnalyzer.Data\TextAnalyzer.Data.csproj", "{81416F30-C6C7-41D0-951D-225E08551939}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer.Analyzers", "TextAnalyzer.Analyzers\TextAnalyzer.Analyzers.csproj", "{6A5A62B1-7518-4A76-BDC3-4E63703B146E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{81416F30-C6C7-41D0-951D-225E08551939}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81416F30-C6C7-41D0-951D-225E08551939}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81416F30-C6C7-41D0-951D-225E08551939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A5A62B1-7518-4A76-BDC3-4E63703B146E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5A62B1-7518-4A76-BDC3-4E63703B146E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5A62B1-7518-4A76-BDC3-4E63703B146E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5A62B1-7518-4A76-BDC3-4E63703B146E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

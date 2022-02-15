@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextAnalyzer.Data.Interfaces
+﻿namespace TextAnalyzer.Data.Interfaces
 {
-    internal interface IText
+    public interface IText
     {
+        public string Title { get; set; }
+        public Task<Stream> ReadAsync();
     }
 }
