@@ -1,4 +1,4 @@
-﻿namespace TextAnalyzer.Data.Interfaces
+﻿namespace TextAnalyzer.Infrastructure.Interfaces
 {
     public interface IText
     {
