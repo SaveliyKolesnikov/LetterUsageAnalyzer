@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TextAnalyzer.Data.Interfaces;
+using TextAnalyzer.Data.Services;
 
 namespace TextAnalyzer.Data.DependencyInjection
 {
@@ -7,8 +8,7 @@ namespace TextAnalyzer.Data.DependencyInjection
     {
         public static IServiceCollection AddDataProvider(this IServiceCollection services)
         {
-            // TODO: Add text provider after implemented
-            //services.AddSingleton<ITextProvider, LocalTextProvider>();
+            services.AddSingleton<ITextProvider, LocalStorageTextProvider>();
 
             return services;
         }

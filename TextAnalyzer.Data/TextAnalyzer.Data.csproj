@@ -16,6 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="Data\Classic\geroi-nashego-vremeni.epub">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Data\Modern\pelevin_iphuck-10_499568_fb2.epub">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
