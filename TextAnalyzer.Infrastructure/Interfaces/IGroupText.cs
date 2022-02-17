@@ -2,6 +2,6 @@
 {
     public interface IGroupText : IText
     {
-        public string Group { get; set; }
+        public string Group { get; init; }
     }
 }

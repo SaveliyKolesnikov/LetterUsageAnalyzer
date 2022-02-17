@@ -10,6 +10,7 @@ namespace TextAnalyzer.Data.Model
     public class Text : IText
     {
         public string Title { get; set; }
+        public string Format { get; init; }
 
         protected readonly string path;
 
@@ -17,6 +18,7 @@ namespace TextAnalyzer.Data.Model
         { 
             this.path = path;
             Title = Path.GetFileName(path);
+            Format = Path.GetExtension(path);
         }
 
         public static Text FromPath(string path) => new(path);

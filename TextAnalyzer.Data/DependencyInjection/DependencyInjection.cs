@@ -8,7 +8,7 @@ namespace TextAnalyzer.Data.DependencyInjection
     {
         public static IServiceCollection AddDataProvider(this IServiceCollection services)
         {
-            services.AddSingleton<ITextProvider, LocalStorageTextProvider>();
+            services.AddSingleton<IInputTextStreamProvider, LocalStorageTextProvider>();
 
             return services;
         }

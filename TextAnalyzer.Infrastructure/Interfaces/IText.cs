@@ -1,8 +1,8 @@
 ﻿namespace TextAnalyzer.Infrastructure.Interfaces
 {
-    public interface IText
+    public interface IText : ITextSource
     {
         public string Title { get; set; }
-        public Task<Stream> ReadAsync();
+        public string Format { get; init; }
     }
 }
