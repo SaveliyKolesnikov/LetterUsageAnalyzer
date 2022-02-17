@@ -1,5 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Dasync.Collections;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
@@ -51,6 +50,7 @@ foreach (var group in grouped)
     var delimiter = new string('-', 80);
     result.AppendLine(delimiter);
 }
+
 var notepadPath = Path.Combine(Environment.SystemDirectory, "notepad.exe");
 var filePath = Path.Combine(Environment.CurrentDirectory, "result.txt");
 await File.WriteAllTextAsync(filePath, result.ToString());
