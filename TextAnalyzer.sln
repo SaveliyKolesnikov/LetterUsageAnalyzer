@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{1DBB1E3D-C4D9-4EE2-B4D4-41BB024A00CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer.Data", "TextAnalyzer.Data\TextAnalyzer.Data.csproj", "{81416F30-C6C7-41D0-951D-225E08551939}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer.DataProvider", "TextAnalyzer.Data\TextAnalyzer.DataProvider.csproj", "{81416F30-C6C7-41D0-951D-225E08551939}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer.Infrastructure", "TextAnalyzer.Infrastructure\TextAnalyzer.Infrastructure.csproj", "{8840B08B-C7D8-4B62-A8D4-E2BE0CB831EB}"
 EndProject

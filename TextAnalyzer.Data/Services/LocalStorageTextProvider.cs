@@ -1,23 +1,23 @@
 ﻿using TextAnalyzer.Data.Interfaces;
-using TextAnalyzer.Data.Model;
+using TextAnalyzer.DataProvider.Interfaces;
 using TextAnalyzer.Infrastructure.Interfaces;
 
 namespace TextAnalyzer.Data.Services
 {
     public class LocalStorageTextProvider : IInputTextStreamProvider
     {
-        public Task<IEnumerable<IText>> GetInputTextsAsync()
+        private readonly IFileTextFactory fileTextFactory;
+
+        public LocalStorageTextProvider(IFileTextFactory fileTextFactory)
+        {
+            this.fileTextFactory = fileTextFactory;
+        }
+
+        public async ValueTask<IEnumerable<IText>> GetInputTextsAsync()
         {
             var dataPath = Path.Combine(Environment.CurrentDirectory, "Data");
             var data = GetFoldersWithData(dataPath);
-            IEnumerable<IText> texts = GenerateTextWrapperFromFilePaths(data).ToArray();
-
-            return Task.FromResult(texts);
-        }
-
-        protected virtual IEnumerable<IText> GenerateTextWrapperFromFilePaths(IDictionary<string, IEnumerable<string>> data)
-        {
-            return data.Values.SelectMany(f => f).Select(Text.FromPath);
+            return await Task.WhenAll(data.Values.SelectMany(f => f).Select(fileTextFactory.GetTextAsync));
         }
 
         protected static IDictionary<string, IEnumerable<string>> GetFoldersWithData(string dataPath)

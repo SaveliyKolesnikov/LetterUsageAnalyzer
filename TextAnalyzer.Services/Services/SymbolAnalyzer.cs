@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TextAnalyzer.Infrastructure.Interfaces;
+﻿using System.Collections.Concurrent;
 using TextAnalyzer.Services.Interfaces;
 using TextAnalyzer.Services.Models;
 
@@ -12,7 +6,14 @@ namespace TextAnalyzer.Services.Services
 {
     public class SymbolAnalyzer : ISymbolAnalyzer
     {
-        public async Task<ISymbolAnalysisResult> AnalyzeAsync(IAsyncEnumerable<string> text)
+        private readonly ISymbolFilteringStratagy symbolFilteringStratagy;
+
+        public SymbolAnalyzer(ISymbolFilteringStratagy symbolFilteringStratagy)
+        {
+            this.symbolFilteringStratagy = symbolFilteringStratagy;
+        }
+
+        public async Task<SymbolAnalysisResult> AnalyzeAsync(IAsyncEnumerable<string> text)
         {
             ConcurrentDictionary<char, decimal> symbols = new();
             await Parallel.ForEachAsync(text, (s, i) =>
@@ -20,9 +21,10 @@ namespace TextAnalyzer.Services.Services
                 var charArray = s.ToCharArray();
                 Parallel.ForEach(charArray, (c, i) =>
                 {
-                    if (c != ' ')
+                    var upperCaseSymbol = char.ToUpper(c);
+                    if (symbolFilteringStratagy.FilterSymbol(upperCaseSymbol))
                     {
-                        symbols.AddOrUpdate(c, 1, (c, oldValue) => oldValue + 1);
+                        symbols.AddOrUpdate(upperCaseSymbol, 1, (c, oldValue) => oldValue + 1);
                     }
                 });
                 return ValueTask.CompletedTask;

@@ -3,6 +3,6 @@
     public interface IText : ITextSource
     {
         public string Title { get; set; }
-        public string Format { get; init; }
+        public string Group { get; init; }
     }
 }

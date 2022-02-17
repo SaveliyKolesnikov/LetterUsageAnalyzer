@@ -3,42 +3,41 @@ using Dasync.Collections;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using TextAnalyzer.Data.DependencyInjection;
 using TextAnalyzer.Data.Interfaces;
 using TextAnalyzer.Infrastructure.Interfaces;
+using TextAnalyzer.Infrastructure.Models;
 using TextAnalyzer.Services.DependencyInjection;
 using TextAnalyzer.Services.Interfaces;
-using VersOne.Epub;
 
 var serviceCollection = new ServiceCollection()
     .AddLogging(b => b.AddConsole())
     .AddDataProvider()
-    .AddSymbolAnalyzer();
+    .AddAnalyzers();
+
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
 var textProvider = serviceProvider.GetRequiredService<IInputTextStreamProvider>();
-var texts = await textProvider.GetInputTextsAsync();
 
 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
-var contentProvider = serviceProvider.GetRequiredService<IContentProvider>();
-var symbolAnalyzer = serviceProvider.GetRequiredService<ISymbolAnalyzer>();
-var contentProviders = texts.Select(contentProvider.GetContent).ToArray();
+var texts = await textProvider.GetInputTextsAsync();
+var textAnalyzer = serviceProvider.GetRequiredService<ITextAnalyzer>();
 
-ConcurrentBag<ISymbolAnalysisResult> analysisResults = new();
-await Parallel.ForEachAsync(contentProviders, async (contentProvider, c) =>
+ConcurrentBag<TextAnalysisResult> textAnalysisResults = new();
+await Parallel.ForEachAsync(texts, async (text, c) =>
 {
-    var analysisResult = await symbolAnalyzer.AnalyzeAsync(contentProvider);
-    analysisResults.Add(analysisResult);
+    var analysisResult = await textAnalyzer.AnalyzeTextAsync(text);
+    textAnalysisResults.Add(analysisResult);
 });
 
 
-foreach (var result in analysisResults)
+foreach (var textAnalysisResult in textAnalysisResults)
 {
-    //Console.WriteLine(result.TextTitle);
-    foreach (var (ch, count) in result.LetterUsage)
+    Console.WriteLine($"Text group: {textAnalysisResult.Text.Group}");
+    Console.WriteLine($"Text title: {textAnalysisResult.Text.Title}");
+    foreach (var (ch, count) in textAnalysisResult.SymbolAnalysisResult.LetterUsage)
     {
         Console.WriteLine($"{ch}: {count}");
     }
@@ -46,6 +45,7 @@ foreach (var result in analysisResults)
     Console.WriteLine(delimiter);
 }
 
+Console.ReadLine();
 /*
 
 //Console.WriteLine("Hello, World!");

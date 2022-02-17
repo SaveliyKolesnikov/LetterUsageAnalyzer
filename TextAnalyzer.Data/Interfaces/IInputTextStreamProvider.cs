@@ -4,6 +4,6 @@ namespace TextAnalyzer.Data.Interfaces
 {
     public interface IInputTextStreamProvider
     {
-        Task<IEnumerable<IText>> GetInputTextsAsync();
+        ValueTask<IEnumerable<IText>> GetInputTextsAsync();
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextAnalyzer.Services.Interfaces;
 using TextAnalyzer.Services.Services;
 
 namespace TextAnalyzer.Services.Tests
@@ -11,22 +12,24 @@ namespace TextAnalyzer.Services.Tests
     [TestClass]
     public class SymbolAnalyzerTests
     {
-        private readonly SymbolAnalyzer _analyzer = new();
+        private readonly SymbolAnalyzer _analyzer = new(new ISymbolFilteringStratagy.Default());
 
         [TestMethod]
         public async Task AnalyzeAsync_ShouldAnalyzeProperlyAsync()
         {
             Dictionary<char, decimal> expectedResult = new()
             {
-                { 'þ', 100000},
-                { 'á', 100000},
-                { 'è', 100000},
-                { 'é', 100000},
-                { 'å', 100000},
-                { 'ó', 100000},
-                { 'ñ', 100000},
+                { 'þ', 100000 },
+                { 'á', 100000 },
+                { 'è', 100000 },
+                { 'é', 100000 },
+                { 'å', 100000 },
+                { 'ó', 100000 },
+                { 'ñ', 100000 },
             };
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
             async IAsyncEnumerable<string> getStrings()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
             {
                 var rand = new Random();
                 var randomSorted = expectedResult.Keys.OrderBy(c => rand.Next(-1, 1) > 0).ToArray();

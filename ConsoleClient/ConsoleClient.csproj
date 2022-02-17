@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TextAnalyzer.Data\TextAnalyzer.Data.csproj" />
+    <ProjectReference Include="..\TextAnalyzer.Data\TextAnalyzer.DataProvider.csproj" />
     <ProjectReference Include="..\TextAnalyzer.Services\TextAnalyzer.Services.csproj" />
   </ItemGroup>
 
