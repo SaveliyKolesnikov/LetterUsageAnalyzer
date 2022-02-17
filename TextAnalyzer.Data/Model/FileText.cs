@@ -15,7 +15,7 @@ namespace TextAnalyzer.Data.Model
             this.path = path;
             Title = Path.GetFileName(path);
             Format = Path.GetExtension(path);
-            Group = Path.GetDirectoryName(path)!;
+            Group = new FileInfo(path).Directory!.Name;
         }
 
         protected virtual Stream ReadFile()
