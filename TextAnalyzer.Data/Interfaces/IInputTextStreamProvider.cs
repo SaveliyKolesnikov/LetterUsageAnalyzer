@@ -1,9 +1,8 @@
 ﻿using TextAnalyzer.Infrastructure.Interfaces;
 
-namespace TextAnalyzer.Data.Interfaces
+namespace TextAnalyzer.DataProvider.Interfaces;
+
+public interface IInputTextStreamProvider
 {
-    public interface IInputTextStreamProvider
-    {
-        ValueTask<IEnumerable<IText>> GetInputTextsAsync();
-    }
+    ValueTask<IEnumerable<IText>> GetInputTextsAsync();
 }

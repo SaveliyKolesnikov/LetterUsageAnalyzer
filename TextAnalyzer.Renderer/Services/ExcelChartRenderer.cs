@@ -18,7 +18,7 @@ public class ExcelChartRenderer : IChartRenderer
         // Invoke javascript
         var res = await nodeJsService.InvokeFromFileAsync<string>("Services/chartjs-node/index.js",
                       "generateChart",
-                      args: new object[] { chartTitle, data }) ??
+                      new object[] {chartTitle, data}) ??
                   throw new ArgumentNullException();
 
         var base64FromJs = res[(res.IndexOf(",", StringComparison.Ordinal) + 1)..];

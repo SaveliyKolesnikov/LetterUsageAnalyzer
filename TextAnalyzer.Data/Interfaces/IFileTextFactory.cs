@@ -1,9 +1,8 @@
 ﻿using TextAnalyzer.Infrastructure.Interfaces;
 
-namespace TextAnalyzer.DataProvider.Interfaces
+namespace TextAnalyzer.DataProvider.Interfaces;
+
+public interface IFileTextFactory
 {
-    public interface IFileTextFactory
-    {
-        Task<IText> GetTextAsync(string path);
-    }
+    Task<IText> GetTextAsync(string path);
 }

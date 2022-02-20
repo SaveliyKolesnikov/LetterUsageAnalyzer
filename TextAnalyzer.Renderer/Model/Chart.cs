@@ -11,7 +11,7 @@ public class Chart : IChart
         this.chartImageBytes = chartImageBytes;
     }
 
-    public static IChart FromBase64(string base64) => new Chart(Convert.FromBase64String(base64));
-
     public Task ToFileAsync(string filePath) => File.WriteAllBytesAsync(filePath, chartImageBytes);
+    
+    public static IChart FromBase64(string base64) => new Chart(Convert.FromBase64String(base64));
 }

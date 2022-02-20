@@ -1,16 +1,15 @@
 ﻿using TextAnalyzer.Services.Interfaces;
 
-namespace TextAnalyzer.Services.Services.SymbolFilters
+namespace TextAnalyzer.Services.Services.SymbolFilters;
+
+public class NoNewLinesFiltering : ISymbolFilteringStratagy
 {
-    public class NoNewLinesFiltering : ISymbolFilteringStratagy
+    private readonly ISymbolFilteringStratagy inner;
+
+    public NoNewLinesFiltering(ISymbolFilteringStratagy inner)
     {
-        private readonly ISymbolFilteringStratagy inner;
-
-        public NoNewLinesFiltering(ISymbolFilteringStratagy inner)
-        {
-            this.inner = inner;
-        }
-
-        public bool FilterSymbol(char ch) => inner.FilterSymbol(ch) && ch != '\n';
+        this.inner = inner;
     }
+
+    public bool FilterSymbol(char ch) => inner.FilterSymbol(ch) && ch != '\n';
 }

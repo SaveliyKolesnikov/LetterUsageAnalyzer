@@ -2,34 +2,33 @@
 using TextAnalyzer.Services.Interfaces;
 using TextAnalyzer.Services.Models;
 
-namespace TextAnalyzer.Services.Services
+namespace TextAnalyzer.Services.Services;
+
+public class SymbolAnalyzer : ISymbolAnalyzer
 {
-    public class SymbolAnalyzer : ISymbolAnalyzer
+    private readonly ISymbolFilteringStratagy symbolFilteringStrategy;
+
+    public SymbolAnalyzer(ISymbolFilteringStratagy symbolFilteringStrategy)
     {
-        private readonly ISymbolFilteringStratagy symbolFilteringStratagy;
+        this.symbolFilteringStrategy = symbolFilteringStrategy;
+    }
 
-        public SymbolAnalyzer(ISymbolFilteringStratagy symbolFilteringStratagy)
+    public async Task<SymbolAnalysisResult> AnalyzeAsync(IAsyncEnumerable<string> text)
+    {
+        ConcurrentDictionary<char, decimal> symbols = new();
+        await Parallel.ForEachAsync(text, (s, i) =>
         {
-            this.symbolFilteringStratagy = symbolFilteringStratagy;
-        }
-
-        public async Task<SymbolAnalysisResult> AnalyzeAsync(IAsyncEnumerable<string> text)
-        {
-            ConcurrentDictionary<char, decimal> symbols = new();
-            await Parallel.ForEachAsync(text, (s, i) =>
+            var charArray = s.ToCharArray();
+            Parallel.ForEach(charArray, (c, i) =>
             {
-                var charArray = s.ToCharArray();
-                Parallel.ForEach(charArray, (c, i) =>
+                var upperCaseSymbol = char.ToUpper(c);
+                if (symbolFilteringStrategy.FilterSymbol(upperCaseSymbol))
                 {
-                    var upperCaseSymbol = char.ToUpper(c);
-                    if (symbolFilteringStratagy.FilterSymbol(upperCaseSymbol))
-                    {
-                        symbols.AddOrUpdate(upperCaseSymbol, 1, (c, oldValue) => oldValue + 1);
-                    }
-                });
-                return ValueTask.CompletedTask;
+                    symbols.AddOrUpdate(upperCaseSymbol, 1, (c, oldValue) => oldValue + 1);
+                }
             });
-            return new SymbolAnalysisResult(symbols);
-        }
+            return ValueTask.CompletedTask;
+        });
+        return new SymbolAnalysisResult(symbols);
     }
 }

@@ -1,21 +1,20 @@
-﻿using TextAnalyzer.Data.Model;
-using TextAnalyzer.DataProvider.Interfaces;
+﻿using TextAnalyzer.DataProvider.Interfaces;
+using TextAnalyzer.DataProvider.Model;
 using TextAnalyzer.Infrastructure.Interfaces;
 
-namespace TextAnalyzer.DataProvider.Services
-{
-    public class FileTextFactory : IFileTextFactory
-    {
-        private const string epub = ".epub";
+namespace TextAnalyzer.DataProvider.Services;
 
-        public async Task<IText> GetTextAsync(string path)
+public class FileTextFactory : IFileTextFactory
+{
+    private const string Epub = ".epub";
+
+    public async Task<IText> GetTextAsync(string path)
+    {
+        var extension = Path.GetExtension(path).ToLower();
+        return extension switch
         {
-            var extension = Path.GetExtension(path).ToLower();
-            return extension switch
-            {
-                epub => await EpubText.FromPath(path),
-                _ => throw new ArgumentException("Unsupported file format", extension)
-            };
-        }
+            Epub => await EpubText.FromPath(path),
+            _ => throw new ArgumentException("Unsupported file format", extension)
+        };
     }
 }

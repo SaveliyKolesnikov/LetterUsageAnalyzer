@@ -1,7 +1,6 @@
-﻿namespace TextAnalyzer.Infrastructure.Interfaces
+﻿namespace TextAnalyzer.Infrastructure.Interfaces;
+
+public interface ITextSource
 {
-    public interface ITextSource
-    {
-        public IAsyncEnumerable<string> ReadAsync();
-    }
+    public IAsyncEnumerable<string> ReadAsync();
 }

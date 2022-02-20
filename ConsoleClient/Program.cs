@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
-using TextAnalyzer.Data.DependencyInjection;
-using TextAnalyzer.Data.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using TextAnalyzer.DataProvider.DependencyInjection;
+using TextAnalyzer.DataProvider.Interfaces;
 using TextAnalyzer.Infrastructure.Interfaces;
-using TextAnalyzer.Infrastructure.Models;
 using TextAnalyzer.Renderer.DependencyInjection;
 using TextAnalyzer.Renderer.Interfaces;
 using TextAnalyzer.Services.DependencyInjection;
-
+using TextAnalyzer.Services.Interfaces;
+using TextAnalyzer.Services.Models;
 
 var serviceCollection = new ServiceCollection()
     .AddLogging(b => b.AddConsole())
@@ -50,12 +50,12 @@ logger.LogInformation("Time spent for rendering: {ms} ms", renderingTimeTracker.
 
 Console.ReadLine();
 
-async Task WriteChartsToDirectory(string outputDirectory, IEnumerable<TextAnalysisResult> analysisResults, IServiceProvider serviceProvider)
+async Task WriteChartsToDirectory(string outputDirectory, IEnumerable<TextAnalysisResult> analysisResults,
+    IServiceProvider serviceProvider)
 {
     var chartRenderer = serviceProvider.GetRequiredService<IChartRenderer>();
     Directory.CreateDirectory(outputDirectory);
     foreach (var groupedResults in analysisResults.GroupBy(c => c.Text.Group))
-    {
         await Parallel.ForEachAsync(groupedResults, async (textAnalysisResult, c) =>
         {
             var (text, symbolAnalysisResult) = textAnalysisResult;
@@ -79,10 +79,10 @@ async Task WriteChartsToDirectory(string outputDirectory, IEnumerable<TextAnalys
             var filePath = Path.Combine(outputDirectoryPath, $"{text.Title}.png");
             await chart.ToFileAsync(filePath);
         });
-    }
 }
 
-async Task WriteGroupedChartsToDirectory(string outputDirectory, IEnumerable<TextAnalysisResult> analysisResults, IServiceProvider serviceProvider)
+async Task WriteGroupedChartsToDirectory(string outputDirectory, IEnumerable<TextAnalysisResult> analysisResults,
+    IServiceProvider serviceProvider)
 {
     var chartRenderer = serviceProvider.GetRequiredService<IChartRenderer>();
     Directory.CreateDirectory(outputDirectory);

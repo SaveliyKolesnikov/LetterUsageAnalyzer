@@ -1,7 +1,4 @@
-﻿using System.Net.Mime;
-using TextAnalyzer.Renderer.Model;
-
-namespace TextAnalyzer.Renderer.Interfaces;
+﻿namespace TextAnalyzer.Renderer.Interfaces;
 
 public interface IChartRenderer
 {

@@ -1,9 +1,8 @@
 ﻿using TextAnalyzer.Services.Models;
 
-namespace TextAnalyzer.Services.Interfaces
+namespace TextAnalyzer.Services.Interfaces;
+
+public interface ISymbolAnalyzer
 {
-    public interface ISymbolAnalyzer
-    {
-        Task<SymbolAnalysisResult> AnalyzeAsync(IAsyncEnumerable<string> text);
-    }
+    Task<SymbolAnalysisResult> AnalyzeAsync(IAsyncEnumerable<string> text);
 }
