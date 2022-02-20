@@ -5,7 +5,7 @@ namespace TextAnalyzer.Services.Services.SymbolFilters;
 public class RussianAlphabetFiltering : ISymbolFilteringStratagy
 {
     private static readonly HashSet<char> letters =
-        "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя".ToCharArray().ToHashSet();
+        "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя".ToCharArray().ToHashSet();
 
     private readonly ISymbolFilteringStratagy inner;
 

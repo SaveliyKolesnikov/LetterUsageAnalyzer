@@ -9,7 +9,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddAnalyzers(this IServiceCollection services)
     {
-        services.AddSingleton<ISymbolAnalyzer, SymbolAnalyzer>();
+        services.AddSingleton<ISymbolAnalyzer, PercentageSymbolAnalyzer>();
 
         services.AddFilteringStrategy();
         services.AddSingleton<ITextAnalyzer, TextAnalyzerService>();

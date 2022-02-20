@@ -37,10 +37,14 @@ await Parallel.ForEachAsync(texts, async (text, c) =>
 analysisTimeTracker.Stop();
 
 var renderingTimeTracker = Stopwatch.StartNew();
+
+Func<decimal, decimal, decimal> defaultStrategy = (current, addValue) => current + addValue;
+Func<decimal, decimal, decimal> percentageStrategy = (current, addValue) => current + addValue / 2;
+
 const string chartsDirectory = "Charts";
 await Task.WhenAll(
     WriteChartsToDirectory(chartsDirectory, textAnalysisResults, serviceProvider),
-    WriteGroupedChartsToDirectory(chartsDirectory, textAnalysisResults, serviceProvider)
+    WriteGroupedChartsToDirectory(chartsDirectory, textAnalysisResults, percentageStrategy, serviceProvider)
 );
 renderingTimeTracker.Stop();
 
@@ -80,7 +84,7 @@ async Task WriteChartsToDirectory(string outputDirectory, IEnumerable<TextAnalys
         });
 }
 
-async Task WriteGroupedChartsToDirectory(string outputDirectory, IEnumerable<TextAnalysisResult> analysisResults,
+async Task WriteGroupedChartsToDirectory(string outputDirectory, IEnumerable<TextAnalysisResult> analysisResults, Func<decimal, decimal, decimal> groupingStrategy,
     IServiceProvider serviceProvider)
 {
     var chartRenderer = serviceProvider.GetRequiredService<IChartRenderer>();
@@ -94,7 +98,7 @@ async Task WriteGroupedChartsToDirectory(string outputDirectory, IEnumerable<Tex
             {
                 if (resultDictionary.ContainsKey(ch))
                 {
-                    resultDictionary[ch] += count;
+                    resultDictionary[ch] = groupingStrategy(count, resultDictionary[ch]);
                 }
                 else
                 {
