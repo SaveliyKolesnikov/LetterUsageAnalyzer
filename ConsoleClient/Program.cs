@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TextAnalyzer.DataProvider.DependencyInjection;
 using TextAnalyzer.DataProvider.Interfaces;
-using TextAnalyzer.Infrastructure.Interfaces;
 using TextAnalyzer.Renderer.DependencyInjection;
 using TextAnalyzer.Renderer.Interfaces;
 using TextAnalyzer.Services.DependencyInjection;
@@ -114,43 +113,3 @@ async Task WriteGroupedChartsToDirectory(string outputDirectory, IEnumerable<Tex
         await chart.ToFileAsync(filePath);
     }
 }
-
-//var result = new StringBuilder();
-//foreach (var group in grouped)
-//{
-//result.AppendLine($"Group name: {group.Key}");
-//var resultDictionary = new Dictionary<char, decimal>();
-//foreach (var textAnalysisResult in group)
-//{
-//    foreach (var (ch, count) in textAnalysisResult.SymbolAnalysisResult.LetterUsage)
-//    {
-//        if (resultDictionary.ContainsKey(ch))
-//        {
-//            resultDictionary[ch] += count;
-//        }
-//        else
-//        {
-//            resultDictionary[ch] = count;
-//        }
-//    }
-//}
-
-//    foreach (var (ch, count) in resultDictionary.OrderByDescending(c => c.Value))
-//    {
-//        result.AppendLine($"{ch}: {count}");
-//    }
-//    result.AppendLine();
-//    var delimiter = new string('-', 80);
-//    result.AppendLine(delimiter);
-//}
-
-//var notepadPath = Path.Combine(Environment.SystemDirectory, "notepad.exe");
-//var filePath = Path.Combine(Environment.CurrentDirectory, "result.txt");
-//await File.WriteAllTextAsync(filePath, result.ToString());
-//var startInfo = new ProcessStartInfo(notepadPath)
-//{
-//    WindowStyle = ProcessWindowStyle.Maximized,
-//    Arguments = filePath
-//};
-
-//Process.Start(startInfo);
