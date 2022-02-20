@@ -42,15 +42,26 @@ var result = new StringBuilder();
 foreach (var group in grouped)
 {
     result.AppendLine($"Group name: {group.Key}");
+    var resultDictionary = new Dictionary<char, decimal>();
     foreach (var textAnalysisResult in group)
     {
-        result.AppendLine($"Text title: {textAnalysisResult.Text.Title}");
-        foreach (var (ch, count) in textAnalysisResult.SymbolAnalysisResult.LetterUsage.OrderByDescending(c => c.Value))
+        foreach (var (ch, count) in textAnalysisResult.SymbolAnalysisResult.LetterUsage)
         {
-            result.AppendLine($"{ch}: {count}");
+            if (resultDictionary.ContainsKey(ch))
+            {
+                resultDictionary[ch] += count;
+            }
+            else
+            {
+                resultDictionary[ch] = count;
+            }
         }
-        result.AppendLine();
     }
+    foreach (var (ch, count) in resultDictionary.OrderByDescending(c => c.Value))
+    {
+        result.AppendLine($"{ch}: {count}");
+    }
+    result.AppendLine();
     var delimiter = new string('-', 80);
     result.AppendLine(delimiter);
 }
