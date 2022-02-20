@@ -47,8 +47,14 @@
 		<None Update="Data\Classic\белая гвардия.epub">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="Data\Modern\pelevin_generation-p-_539503_fb2.epub">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Data\Modern\pelevin_iphuck-10_499568_fb2.epub">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\Modern\SNUFF.epub">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Data\Modern\зимняя дорога.epub">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
