@@ -4,11 +4,11 @@ using TextAnalyzer.Renderer.Model;
 
 namespace TextAnalyzer.Renderer.Services;
 
-public class ExcelChartRenderer : IChartRenderer
+public class BarChartRenderer : IChartRenderer
 {
     private readonly INodeJSService nodeJsService;
 
-    public ExcelChartRenderer(INodeJSService nodeJsService)
+    public BarChartRenderer(INodeJSService nodeJsService)
     {
         this.nodeJsService = nodeJsService;
     }

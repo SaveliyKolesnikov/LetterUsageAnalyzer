@@ -11,7 +11,7 @@ using TextAnalyzer.Services.Interfaces;
 using TextAnalyzer.Services.Models;
 
 var serviceCollection = new ServiceCollection()
-    .AddLogging(b => b.AddConsole())
+    .AddLogging(b => b.AddConsole().SetMinimumLevel(LogLevel.Information))
     .AddDataProvider()
     .AddAnalyzers()
     .AddChartRenderer();

@@ -10,7 +10,7 @@ public static class DependencyInjection
     public static IServiceCollection AddChartRenderer(this IServiceCollection services)
     {
         services.AddNodeJS();
-        services.AddSingleton<IChartRenderer, ExcelChartRenderer>();
+        services.AddSingleton<IChartRenderer, BarChartRenderer>();
 
         return services;
     }
