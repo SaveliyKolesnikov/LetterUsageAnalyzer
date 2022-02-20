@@ -22,6 +22,8 @@ var textProvider = serviceProvider.GetRequiredService<IInputTextStreamProvider>(
 
 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
+var timeTracker = Stopwatch.StartNew();
+
 var texts = await textProvider.GetInputTextsAsync();
 var textAnalyzer = serviceProvider.GetRequiredService<ITextAnalyzer>();
 
@@ -31,6 +33,8 @@ await Parallel.ForEachAsync(texts, async (text, c) =>
     var analysisResult = await textAnalyzer.AnalyzeTextAsync(text);
     textAnalysisResults.Add(analysisResult);
 });
+
+logger.LogInformation("Time spent: {ms} ms", timeTracker.ElapsedMilliseconds);
 
 var grouped = textAnalysisResults.GroupBy(c => c.Text.Group);
 
