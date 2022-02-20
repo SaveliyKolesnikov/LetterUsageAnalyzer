@@ -22,6 +22,6 @@ public class LocalStorageTextProvider : IInputTextStreamProvider
     protected static IDictionary<string, IEnumerable<string>> GetFoldersWithData(string dataPath)
     {
         return Directory.GetDirectories(dataPath)
-            .ToDictionary<string?, string, IEnumerable<string>>(directoryName => directoryName, Directory.GetFiles);
+            .ToDictionary<string?, string, IEnumerable<string>>(directoryName => directoryName!, Directory.GetFiles!);
     }
 }
