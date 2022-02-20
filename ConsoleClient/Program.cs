@@ -44,8 +44,8 @@ await Task.WhenAll(
 );
 renderingTimeTracker.Stop();
 
-logger.LogInformation("Time spent for analysis: {ms} ms", analysisTimeTracker.ElapsedMilliseconds);
-logger.LogInformation("Time spent for rendering: {ms} ms", renderingTimeTracker.ElapsedMilliseconds);
+logger.LogInformation("Time spent on analysis: {ms} ms", analysisTimeTracker.ElapsedMilliseconds);
+logger.LogInformation("Time spent on rendering: {ms} ms", renderingTimeTracker.ElapsedMilliseconds);
 
 Console.ReadLine();
 
