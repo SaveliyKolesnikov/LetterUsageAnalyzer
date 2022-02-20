@@ -20,6 +20,21 @@ const generateChart = (callback, title, charCount) => {
             ]
         },
         options: {
+            plugins: {
+                datalabels: {
+                    color: 'blue',
+                    labels: {
+                        title: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        },
+                        value: {
+                            color: 'green'
+                        }
+                    }
+                }
+            }
         },
         plugins: [
             {
@@ -31,8 +46,26 @@ const generateChart = (callback, title, charCount) => {
                     ctx.fillRect(0, 0, width, height);
                     ctx.restore();
                 }
-            }
-        ]
+            },
+            {
+                id: "add-labels",
+                afterDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+                    ctx.textBaseline = 'bottom';
+
+                    chart.data.datasets.forEach(function (dataset, i) {
+                        var meta = chart.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = parseFloat(dataset.data[index]).toFixed(2);
+                            ctx.fillText(data, bar.x, bar.y);
+                        });
+                    });
+                }
+            },
+
+        ],
     };
     const chartCallback = (ChartJS) => {
         ChartJS.defaults.responsive = true;
@@ -84,3 +117,5 @@ var bgColors = [
 ];
 
 module.exports = { generateChart };
+
+module.exports.generateChart(() => { }, "test", { 'q': 123123 });
