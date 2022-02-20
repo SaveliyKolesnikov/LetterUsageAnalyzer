@@ -20,21 +20,6 @@ const generateChart = (callback, title, charCount) => {
             ]
         },
         options: {
-            plugins: {
-                datalabels: {
-                    color: 'blue',
-                    labels: {
-                        title: {
-                            font: {
-                                weight: 'bold'
-                            }
-                        },
-                        value: {
-                            color: 'green'
-                        }
-                    }
-                }
-            }
         },
         plugins: [
             {
@@ -59,7 +44,9 @@ const generateChart = (callback, title, charCount) => {
                         var meta = chart.getDatasetMeta(i);
                         meta.data.forEach(function (bar, index) {
                             var data = parseFloat(dataset.data[index]).toFixed(2);
-                            ctx.fillText(data, bar.x, bar.y);
+                            if (data.toString().length <= 5) {
+                                ctx.fillText(data, bar.x, bar.y);
+                            }
                         });
                     });
                 }

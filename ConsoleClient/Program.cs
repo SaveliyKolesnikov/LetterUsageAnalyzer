@@ -13,7 +13,7 @@ using TextAnalyzer.Services.Models;
 var serviceCollection = new ServiceCollection()
     .AddLogging(b => b.AddConsole().SetMinimumLevel(LogLevel.Information))
     .AddDataProvider()
-    .AddAnalyzers()
+    .AddSymbolCountAnalyzer()
     .AddChartRenderer();
 
 
@@ -38,13 +38,13 @@ analysisTimeTracker.Stop();
 
 var renderingTimeTracker = Stopwatch.StartNew();
 
-Func<decimal, decimal, decimal> defaultStrategy = (current, addValue) => current + addValue;
-Func<decimal, decimal, decimal> percentageStrategy = (current, addValue) => current + addValue / 2;
+decimal DefaultStrategy(decimal current, decimal addValue) => current + addValue;
+decimal PercentageStrategy(decimal current, decimal addValue) => current + addValue / 2;
 
 const string chartsDirectory = "Charts";
 await Task.WhenAll(
     WriteChartsToDirectory(chartsDirectory, textAnalysisResults, serviceProvider),
-    WriteGroupedChartsToDirectory(chartsDirectory, textAnalysisResults, percentageStrategy, serviceProvider)
+    WriteGroupedChartsToDirectory(chartsDirectory, textAnalysisResults, DefaultStrategy, serviceProvider)
 );
 renderingTimeTracker.Stop();
 

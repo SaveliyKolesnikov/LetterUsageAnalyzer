@@ -4,11 +4,11 @@ using TextAnalyzer.Services.Models;
 
 namespace TextAnalyzer.Services.Services;
 
-public class SymbolAnalyzer : ISymbolAnalyzer
+public class SymbolCountAnalyzer : ISymbolAnalyzer
 {
     private readonly ISymbolFilteringStratagy symbolFilteringStrategy;
 
-    public SymbolAnalyzer(ISymbolFilteringStratagy symbolFilteringStrategy)
+    public SymbolCountAnalyzer(ISymbolFilteringStratagy symbolFilteringStrategy)
     {
         this.symbolFilteringStrategy = symbolFilteringStrategy;
     }

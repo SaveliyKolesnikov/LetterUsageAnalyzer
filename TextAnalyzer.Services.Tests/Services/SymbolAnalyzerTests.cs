@@ -12,7 +12,7 @@ namespace TextAnalyzer.Services.Tests.Services;
 [TestClass]
 public class SymbolAnalyzerTests
 {
-    private readonly SymbolAnalyzer _analyzer = new(new ISymbolFilteringStratagy.Default());
+    private readonly SymbolCountAnalyzer countAnalyzer = new(new ISymbolFilteringStratagy.Default());
 
     [TestMethod]
     public async Task AnalyzeAsync_ShouldAnalyzeProperlyAsync()
@@ -41,7 +41,7 @@ public class SymbolAnalyzerTests
             yield return GenerateStringWithSymbols(10000, " ");
         }
 
-        var res = await _analyzer.AnalyzeAsync(getStrings());
+        var res = await countAnalyzer.AnalyzeAsync(getStrings());
 
         Assert.AreEqual(expectedResult.Count, res.LetterUsage.Count);
         foreach (var (ch, count) in expectedResult)

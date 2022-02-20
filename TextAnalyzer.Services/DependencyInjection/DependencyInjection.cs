@@ -7,9 +7,19 @@ namespace TextAnalyzer.Services.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddAnalyzers(this IServiceCollection services)
+    public static IServiceCollection AddSymbolPercentageAnalyzer(this IServiceCollection services)
     {
         services.AddSingleton<ISymbolAnalyzer, PercentageSymbolAnalyzer>();
+
+        services.AddFilteringStrategy();
+        services.AddSingleton<ITextAnalyzer, TextAnalyzerService>();
+
+
+        return services;
+    }
+    public static IServiceCollection AddSymbolCountAnalyzer(this IServiceCollection services)
+    {
+        services.AddSingleton<ISymbolAnalyzer, SymbolCountAnalyzer>();
 
         services.AddFilteringStrategy();
         services.AddSingleton<ITextAnalyzer, TextAnalyzerService>();
